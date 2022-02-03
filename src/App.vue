@@ -1,26 +1,44 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <AddProductPage>
+            <template v-slot:header>
+                  <Header />
+            </template>
+
+            <template v-slot:addProductForm>
+                  <AddProductForm />
+            </template>
+
+            <template v-slot:productsListing>
+                  <ProductsListing />
+            </template>
+      </AddProductPage>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from "./components/Header.vue";
+import AddProductForm from "./components/AddProductForm.vue";
+import AddProductPage from "./layouts/AddProductPage.vue";
+import ProductsListing from "./layouts/ProductsListing.vue";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+      name: "App",
+      components: {
+            Header,
+            AddProductForm,
+            AddProductPage,
+            ProductsListing,
+      },
+};
 </script>
 
 <style lang="scss">
+body {
+      background-color: $white;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+      max-width: $screen-width;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-top: $base-margin * 2;
 }
 </style>
