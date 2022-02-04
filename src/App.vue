@@ -60,6 +60,7 @@ export default {
 body {
       background-color: $white;
 }
+
 #app {
       max-width: $screen-width;
       margin-left: auto !important;

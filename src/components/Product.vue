@@ -1,5 +1,9 @@
 <template>
-      <li class="product" @mouseenter="switchDelete" @mouseleave="switchDelete">
+      <li
+            class="product"
+            @mouseenter="showDelet = true"
+            @mouseleave="showDelet = false"
+      >
             <div class="image">
                   <a href="{{productDetails.link}}">
                         <img src="../assets/product.jpg" />
@@ -40,10 +44,6 @@ export default {
       },
 
       methods: {
-            switchDelete() {
-                  this.showDelet = !this.showDelet;
-            },
-
             ...mapActions({
                   deleteProduct: "deleteProduct",
             }),
