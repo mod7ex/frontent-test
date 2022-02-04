@@ -8,6 +8,8 @@ import {
       fetchProducts,
 } from "../helpers";
 
+import products from "../helpers";
+
 // Create a new store instance.
 export default createStore({
       state() {

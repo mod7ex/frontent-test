@@ -11,7 +11,7 @@
                         <span>&#8964;</span>
                   </button>
 
-                  <transition name="slide-fade">
+                  <transition name="fade">
                         <ul class="options" v-if="showFIlter">
                               <li @click="orderByMinPrice">min price</li>
                               <li @click="orderByMaxPrice">max price</li>
@@ -82,16 +82,11 @@ export default {
       }
 }
 
-.slide-fade-enter-active {
-      transition: all 0.3s ease;
+.fade-enter-active,
+.fade-leave-active {
+      transition: opacity 0.5s;
 }
-.slide-fade-leave-active {
-      transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-leave-to,
-.slide-fade-enter {
-      transform: translateY(-100px);
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
       opacity: 0;
 }
 </style>
