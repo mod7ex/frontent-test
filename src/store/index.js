@@ -1,18 +1,26 @@
 import { createStore } from "vuex";
 
-import products from "../helpers";
-
-console.log(products);
+import {
+      compareMin,
+      compareMax,
+      compareName,
+      storeLocally,
+      fetchProducts,
+} from "../helpers";
 
 // Create a new store instance.
 export default createStore({
       state() {
             return {
-                  products,
+                  products: [],
             };
       },
 
       mutations: {
+            prepareProducts(state) {
+                  state.products = fetchProducts();
+            },
+
             addProduct(state, payload) {
                   state.products.push({
                         ...payload,
@@ -24,6 +32,18 @@ export default createStore({
                   state.products = state.products.filter(
                         (product) => product.id != payload
                   );
+            },
+
+            orderByMinPrice(state) {
+                  state.products.sort(compareMin);
+            },
+
+            orderByMaxPrice(state) {
+                  state.products.sort(compareMax);
+            },
+
+            orderByName(state) {
+                  state.products.sort(compareName);
             },
       },
 
@@ -40,6 +60,26 @@ export default createStore({
 
             deleteProduct({ commit }, id) {
                   commit("deleteProduct", id);
+            },
+
+            orderByMinPrice({ commit }) {
+                  commit("orderByMinPrice");
+            },
+
+            orderByMaxPrice({ commit }) {
+                  commit("orderByMaxPrice");
+            },
+
+            orderByName({ commit }) {
+                  commit("orderByName");
+            },
+
+            saveProducts({ getters }) {
+                  storeLocally(getters.PRODUCTS);
+            },
+
+            prepareProducts({ commit }) {
+                  commit("prepareProducts");
             },
       },
 });

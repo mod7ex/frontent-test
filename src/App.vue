@@ -19,6 +19,7 @@ import Header from "./components/Header.vue";
 import AddProductForm from "./components/AddProductForm.vue";
 import AddProductPage from "./layouts/AddProductPage.vue";
 import ProductsListing from "./layouts/ProductsListing.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
       name: "App",
@@ -27,6 +28,30 @@ export default {
             AddProductForm,
             AddProductPage,
             ProductsListing,
+      },
+
+      computed: {
+            ...mapGetters({ products: "PRODUCTS" }),
+      },
+
+      methods: {
+            ...mapActions({
+                  prepareProducts: "prepareProducts",
+                  saveProducts: "saveProducts",
+            }),
+      },
+
+      mounted() {
+            this.prepareProducts();
+      },
+
+      watch: {
+            products: {
+                  handler: function (val) {
+                        this.saveProducts();
+                  },
+                  deep: true,
+            },
       },
 };
 </script>

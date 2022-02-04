@@ -13,9 +13,9 @@
 
                   <transition name="slide-fade">
                         <ul class="options" v-if="showFIlter">
-                              <li>filter 1</li>
-                              <li>filter 2</li>
-                              <li>filter 3</li>
+                              <li @click="orderByMinPrice">min price</li>
+                              <li @click="orderByMaxPrice">max price</li>
+                              <li @click="orderByName">name</li>
                         </ul>
                   </transition>
             </div>
@@ -23,8 +23,18 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
       name: "Header",
+
+      methods: {
+            ...mapActions({
+                  orderByMinPrice: "orderByMinPrice",
+                  orderByMaxPrice: "orderByMaxPrice",
+                  orderByName: "orderByName",
+            }),
+      },
 
       data: () => {
             return {
@@ -38,6 +48,7 @@ export default {
 #header {
       @include flex();
       margin-bottom: $base-margin * 2;
+      padding: $base-padding $base-padding * 2;
 
       #head-filter {
             position: relative;

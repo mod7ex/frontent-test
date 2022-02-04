@@ -28,4 +28,21 @@ export default {
       grid-column-gap: 0px;
       grid-row-gap: 0px;
 }
+
+@media only screen and (max-width: 1280px) {
+      #body {
+            grid-template-columns: 1fr 2fr;
+      }
+}
+
+@media only screen and (max-width: 720px) {
+      #body {
+            @include flex(
+                  $direction: column,
+                  $justify: center,
+                  $align: center,
+                  $wrap: nowrap
+            );
+      }
+}
 </style>

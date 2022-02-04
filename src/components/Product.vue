@@ -1,9 +1,5 @@
 <template>
-      <div
-            class="product"
-            @mouseenter="switchDelete"
-            @mouseleave="switchDelete"
-      >
+      <li class="product" @mouseenter="switchDelete" @mouseleave="switchDelete">
             <div class="image">
                   <a href="{{productDetails.link}}">
                         <img src="../assets/product.jpg" />
@@ -18,14 +14,16 @@
                   </p>
                   <h3>{{ productDetails.price }} руб.</h3>
             </div>
-            <span
-                  class="delete"
-                  v-if="showDelet"
-                  @click="deleteProduct(productDetails.id)"
-            >
-                  <img src="../assets/delete.svg" alt="" />
-            </span>
-      </div>
+            <transition name="fade">
+                  <span
+                        class="delete"
+                        v-if="showDelet"
+                        @click="deleteProduct(productDetails.id)"
+                  >
+                        <img src="../assets/delete.svg" alt="" />
+                  </span>
+            </transition>
+      </li>
 </template>
 
 <script>
@@ -37,6 +35,7 @@ export default {
       data: () => {
             return {
                   showDelet: false,
+                  bool: false,
             };
       },
 
@@ -45,7 +44,9 @@ export default {
                   this.showDelet = !this.showDelet;
             },
 
-            ...mapActions({ deleteProduct: "deleteProduct" }),
+            ...mapActions({
+                  deleteProduct: "deleteProduct",
+            }),
       },
 
       props: {
@@ -70,13 +71,28 @@ export default {
 </script>
 
 <style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+      transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+      opacity: 0;
+}
+
 .product {
       @include theme-shape();
       margin: $base-margin * 0.5;
       // flex: 1;
-      width: 300px !important;
+      width: $base-width !important;
       height: 423px !important;
       position: relative;
+
+      transition: box-shadow 0.5s ease;
+
+      &:hover {
+            box-shadow: 0 2px 3px rgba($black, 0.5);
+      }
 
       .delete {
             background-color: #ff8484;
@@ -86,6 +102,7 @@ export default {
             top: -10px;
             right: -10px;
             cursor: pointer;
+            transition: all 0.5s ease;
       }
 
       .details {

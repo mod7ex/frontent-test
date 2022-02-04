@@ -1,11 +1,11 @@
 <template>
-      <div id="productsListing">
+      <transition-group name="list" tag="ul" id="productsListing">
             <Product
                   v-for="product in products"
                   :key="product.id"
                   :productDetails="product"
             />
-      </div>
+      </transition-group>
 </template>
 
 <script>
@@ -27,6 +27,16 @@ export default {
 </script>
 
 <style lang="scss">
+.list-enter-active,
+.list-leave-active {
+      transition: all 1s;
+}
+.list-enter,
+.list-leave-to {
+      opacity: 0;
+      transform: translateY(-30px);
+}
+
 #productsListing {
       // display: grid;
       // grid-template-columns: repeat(3, 1fr);
@@ -39,7 +49,7 @@ export default {
 
       @include flex(
             $direction: row,
-            $justify: flex-start,
+            $justify: center,
             $align: flex-start,
             $wrap: wrap
       );
