@@ -85,8 +85,8 @@ export default {
       width: $base-width !important;
       height: 423px !important;
       position: relative;
-
       transition: box-shadow 0.5s ease;
+      justify-items: end;
 
       &:hover {
             box-shadow: 0 2px 3px rgba($black, 0.5);

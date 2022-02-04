@@ -10,7 +10,6 @@
 
 <script>
 import Product from "../components/Product.vue";
-
 import { mapGetters } from "vuex";
 
 export default {
