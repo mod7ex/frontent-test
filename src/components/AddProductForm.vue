@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
       name: "AddProductForm",
 
@@ -69,8 +71,11 @@ export default {
       },
 
       methods: {
+            ...mapActions({ addProduct: "addProduct" }),
+
             onSubmit() {
-                  console.log(this.productDetails);
+                  this.addProduct(this.productDetails);
+                  this.productDetails = {};
             },
       },
 
@@ -96,6 +101,9 @@ export default {
 
 <style lang="scss">
 form {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 20px;
       @include theme-shape();
       background-color: white;
       margin: $base-margin * 0.5;

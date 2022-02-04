@@ -59,6 +59,7 @@ export default {
                   @include flex();
             }
             .options {
+                  z-index: 10;
                   position: absolute;
                   li {
                         border-bottom: 1px solid $black-gray;

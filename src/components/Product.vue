@@ -18,13 +18,19 @@
                   </p>
                   <h3>{{ productDetails.price }} руб.</h3>
             </div>
-            <span class="delete" v-if="showDelet">
+            <span
+                  class="delete"
+                  v-if="showDelet"
+                  @click="deleteProduct(productDetails.id)"
+            >
                   <img src="../assets/delete.svg" alt="" />
             </span>
       </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
       name: "Product",
 
@@ -38,6 +44,8 @@ export default {
             switchDelete() {
                   this.showDelet = !this.showDelet;
             },
+
+            ...mapActions({ deleteProduct: "deleteProduct" }),
       },
 
       props: {
@@ -45,7 +53,7 @@ export default {
                   type: Object,
                   default() {
                         return {
-                              id: 1,
+                              id: Math.random().toString(),
 
                               title: "Наименование товара",
 
@@ -65,8 +73,9 @@ export default {
 .product {
       @include theme-shape();
       margin: $base-margin * 0.5;
-      min-width: 250px;
-      flex: 1;
+      // flex: 1;
+      width: 300px !important;
+      height: 423px !important;
       position: relative;
 
       .delete {
