@@ -36,12 +36,7 @@ export default {
 
 @media only screen and (max-width: 720px) {
       #body {
-            @include flex(
-                  $direction: column,
-                  $justify: center,
-                  $align: center,
-                  $wrap: nowrap
-            );
+            grid-template-columns: 1fr 1fr;
       }
 }
 </style>

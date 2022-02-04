@@ -82,7 +82,6 @@ export default {
 
 .product {
       @include theme-shape();
-      // margin: $base-margin * 0.5;
       width: $base-width !important;
       height: 423px !important;
       position: relative;
