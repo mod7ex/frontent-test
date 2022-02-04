@@ -48,7 +48,6 @@ export default {
 #header {
       @include flex();
       margin-bottom: $base-margin * 2;
-      padding: $base-padding $base-padding * 2;
 
       #head-filter {
             position: relative;

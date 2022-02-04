@@ -25,8 +25,7 @@ export default {
       display: grid;
       grid-template-columns: 1fr 3fr;
       grid-template-rows: 1fr;
-      grid-column-gap: 0px;
-      grid-row-gap: 0px;
+      grid-column-gap: $base-margin;
 }
 
 @media only screen and (max-width: 1280px) {

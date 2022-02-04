@@ -175,7 +175,6 @@ form {
       top: 20px;
       @include theme-shape();
       background-color: white;
-      margin: $base-margin * 0.5;
       padding: $base-padding * 3;
       width: $base-width;
 

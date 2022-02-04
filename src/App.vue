@@ -65,6 +65,6 @@ body {
       max-width: $screen-width;
       margin-left: auto !important;
       margin-right: auto !important;
-      padding-top: $base-margin * 2;
+      padding: $base-padding * 2;
 }
 </style>
