@@ -38,13 +38,6 @@ export default {
 }
 
 #productsListing {
-      // @include flex(
-      //       $direction: row-reverse,
-      //       $justify: flex-start,
-      //       $align: flex-start,
-      //       $wrap: wrap
-      // );
-
       display: grid;
       grid-template-columns: repeat(3, $base-width);
       grid-template-rows: 1fr;
