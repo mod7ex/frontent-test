@@ -14,7 +14,7 @@ import products from "../helpers";
 export default createStore({
       state() {
             return {
-                  products: [],
+                  products,
             };
       },
 

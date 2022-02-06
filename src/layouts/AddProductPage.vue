@@ -4,13 +4,9 @@
       </header>
 
       <div id="body">
-            <div id="addProductForm">
-                  <slot name="addProductForm"></slot>
-            </div>
+            <slot name="addProductForm"></slot>
 
-            <div id="productsListing">
-                  <slot name="productsListing"></slot>
-            </div>
+            <slot name="productsListing"></slot>
       </div>
 </template>
 
@@ -23,20 +19,16 @@ export default {
 <style lang="scss">
 #body {
       display: grid;
-      grid-template-columns: 1fr 3fr;
-      grid-template-rows: 1fr;
+      grid-template-columns: $base-width auto;
       grid-column-gap: $base-margin;
+      align-items: start;
 }
 
-@media only screen and (max-width: 1280px) {
+@media only screen and (max-width: $screen-small * 1.3) {
       #body {
-            grid-template-columns: 1fr 2fr;
-      }
-}
-
-@media only screen and (max-width: 720px) {
-      #body {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: $base-width;
+            grid-row-gap: $base-margin;
+            justify-content: center;
       }
 }
 </style>

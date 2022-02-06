@@ -12,7 +12,7 @@ let product = {
       link: "#",
 };
 
-let keys = Array.from({ length: 4 }, (v, k) => k + 1);
+let keys = Array.from({ length: 7 }, (v, k) => k + 1);
 
 for (let key of keys) {
       let id = `${Math.random().toString()}${key}`;

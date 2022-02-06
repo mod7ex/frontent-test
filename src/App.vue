@@ -42,17 +42,17 @@ export default {
       },
 
       mounted() {
-            this.prepareProducts();
+            // this.prepareProducts();
       },
 
-      watch: {
-            products: {
-                  handler: function (val) {
-                        this.saveProducts();
-                  },
-                  deep: true,
-            },
-      },
+      // watch: {
+      //       products: {
+      //             handler: function (val) {
+      //                   this.saveProducts();
+      //             },
+      //             deep: true,
+      //       },
+      // },
 };
 </script>
 
@@ -62,7 +62,7 @@ body {
 }
 
 #app {
-      max-width: $screen-width;
+      max-width: $screen-max-width;
       margin-left: auto !important;
       margin-right: auto !important;
       padding: $base-padding * 2;

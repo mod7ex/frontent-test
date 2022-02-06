@@ -170,13 +170,9 @@ export default {
 
 <style lang="scss">
 form {
-      position: -webkit-sticky;
-      position: sticky;
-      top: 20px;
       @include theme-shape();
       background-color: white;
       padding: $base-padding * 3;
-      width: $base-width;
 
       .form-area {
             margin-bottom: $base-margin * 2;
@@ -209,6 +205,14 @@ form {
                         pointer-events: none;
                   }
             }
+      }
+}
+
+@media only screen and (min-width: $screen-medium) {
+      form {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 20px;
       }
 }
 </style>
