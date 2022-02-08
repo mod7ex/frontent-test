@@ -8,13 +8,11 @@ import {
       fetchProducts,
 } from "../helpers";
 
-import products from "../helpers";
-
 // Create a new store instance.
 export default createStore({
       state() {
             return {
-                  products,
+                  products: [],
             };
       },
 
@@ -24,10 +22,7 @@ export default createStore({
             },
 
             addProduct(state, payload) {
-                  state.products.push({
-                        ...payload,
-                        id: Math.random().toString(),
-                  });
+                  state.products.push(payload);
             },
 
             deleteProduct(state, payload) {
@@ -57,7 +52,11 @@ export default createStore({
 
       actions: {
             addProduct({ commit }, payload) {
-                  commit("addProduct", payload);
+                  commit("addProduct", {
+                        ...payload,
+                        id: Math.random().toString(),
+                        image: "https://placeimg.com/640/480/tech",
+                  });
             },
 
             deleteProduct({ commit }, id) {

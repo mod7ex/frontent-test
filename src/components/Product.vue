@@ -5,12 +5,12 @@
             @mouseleave="showDelet = false"
       >
             <div class="image">
-                  <a href="{{productDetails.link}}">
-                        <img src="../assets/product.jpg" />
+                  <a :href="productDetails.link">
+                        <img :src="productDetails.image" />
                   </a>
             </div>
             <div class="details">
-                  <a class="title" href="{{productDetails.link}}">
+                  <a class="title" :href="productDetails.link">
                         <h3>{{ productDetails.title }}</h3>
                   </a>
                   <p class="description">
@@ -52,19 +52,23 @@ export default {
       props: {
             productDetails: {
                   type: Object,
-                  default() {
-                        return {
-                              id: Math.random().toString(),
+                  /*
+                        default() {
+                              return {
+                                    id: String,
 
-                              title: "Наименование товара",
+                                    image: String,
 
-                              description: `Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк`,
+                                    title: String,
 
-                              price: 1039,
+                                    description: String,
 
-                              link: "#",
-                        };
-                  },
+                                    price: Number,
+
+                                    link: String,
+                              };
+                        },
+                  */
             },
       },
 };

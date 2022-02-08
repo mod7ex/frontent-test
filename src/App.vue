@@ -42,17 +42,17 @@ export default {
       },
 
       mounted() {
-            // this.prepareProducts();
+            setTimeout(this.prepareProducts, 500);
       },
 
-      // watch: {
-      //       products: {
-      //             handler: function (val) {
-      //                   this.saveProducts();
-      //             },
-      //             deep: true,
-      //       },
-      // },
+      watch: {
+            products: {
+                  handler: function (val) {
+                        this.saveProducts();
+                  },
+                  deep: true,
+            },
+      },
 };
 </script>
 

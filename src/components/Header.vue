@@ -53,7 +53,7 @@ export default {
       data: () => {
             return {
                   showFIlter: false,
-                  filter: 2,
+                  filter: null,
             };
       },
 
