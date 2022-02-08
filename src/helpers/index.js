@@ -62,3 +62,15 @@ export const fetchProducts = () => {
 
       return JSON.parse(products);
 };
+
+export const debounce = (fn, timeout = 5000) => {
+      let timer;
+      console.log(timeout);
+
+      return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                  fn.apply(this, ...args);
+            }, timeout);
+      };
+};

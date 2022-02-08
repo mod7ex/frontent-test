@@ -19,7 +19,9 @@ import Header from "./components/Header.vue";
 import AddProductForm from "./components/AddProductForm.vue";
 import AddProductPage from "./layouts/AddProductPage.vue";
 import ProductsListing from "./layouts/ProductsListing.vue";
-import { mapActions, mapGetters } from "vuex";
+
+import { computed, onMounted, watch } from "vue";
+import { mapActions, mapGetters, useStore } from "vuex";
 
 export default {
       name: "App",
@@ -30,28 +32,33 @@ export default {
             ProductsListing,
       },
 
-      computed: {
-            ...mapGetters({ products: "PRODUCTS" }),
-      },
+      setup(_, context) {
+            const store = useStore();
 
-      methods: {
-            ...mapActions({
-                  prepareProducts: "prepareProducts",
-                  saveProducts: "saveProducts",
-            }),
-      },
+            // getters
+            let products = computed(() => store.getters.PRODUCTS);
 
-      mounted() {
-            setTimeout(this.prepareProducts, 500);
-      },
+            // actions
+            let prepareProducts = () => store.dispatch("prepareProducts");
+            let saveProducts = () => store.dispatch("saveProducts");
 
-      watch: {
-            products: {
-                  handler: function (val) {
-                        this.saveProducts();
+            onMounted(() => {
+                  setTimeout(prepareProducts, 500);
+            });
+
+            watch(
+                  products,
+                  () => {
+                        saveProducts();
                   },
-                  deep: true,
-            },
+                  { deep: true }
+            );
+
+            return {
+                  products,
+                  prepareProducts,
+                  saveProducts,
+            };
       },
 };
 </script>

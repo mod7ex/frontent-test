@@ -1,6 +1,6 @@
 <template>
       <form action="" @submit.prevent="onSubmit">
-            <div class="form-area" :class="{ invalid: validity.title.invalid }">
+            <div class="form-area" :class="{ invalid: !form.title.valide }">
                   <label for="title"
                         >Наименование товара <span class="important"> </span
                   ></label>
@@ -8,26 +8,28 @@
                         type="text"
                         placeholder="Введите наименование товара"
                         id="title"
-                        v-model="productDetails.title"
+                        v-model="form.title.value"
+                        @input="form.title.validate"
                   />
-                  <small class="error">{{ validity.title.err }}</small>
+                  <small class="error">{{ form.title.err }}</small>
             </div>
 
             <div
                   class="form-area"
-                  :class="{ invalid: validity.description.invalid }"
+                  :class="{ invalid: !form.description.valide }"
             >
                   <label for="description">Описание товара</label>
                   <textarea
                         rows="7"
                         placeholder="Введите описание товара"
                         id="description"
-                        v-model="productDetails.description"
+                        v-model="form.description.value"
+                        @input="form.description.validate"
                   ></textarea>
-                  <small class="error">{{ validity.description.err }}</small>
+                  <small class="error">{{ form.description.err }}</small>
             </div>
 
-            <div class="form-area" :class="{ invalid: validity.link.invalid }">
+            <div class="form-area" :class="{ invalid: !form.link.valide }">
                   <label for="link"
                         >Ссылка на изображение товара
                         <span class="important"></span>
@@ -36,12 +38,13 @@
                         type="text"
                         placeholder="Введите ссылку"
                         id="link"
-                        v-model="productDetails.link"
+                        v-model="form.link.value"
+                        @input="form.link.validate"
                   />
-                  <small class="error">{{ validity.link.err }}</small>
+                  <small class="error">{{ form.link.err }}</small>
             </div>
 
-            <div class="form-area" :class="{ invalid: validity.price.invalid }">
+            <div class="form-area" :class="{ invalid: !form.price.valide }">
                   <label for="price"
                         >Цена товара <span class="important"></span>
                   </label>
@@ -49,128 +52,137 @@
                         type="number"
                         placeholder="Введите цену"
                         id="price"
-                        v-model="productDetails.price"
+                        v-model="form.price.value"
+                        @input="form.price.validate"
                   />
-                  <small class="error">{{ validity.price.err }}</small>
+                  <small class="error">{{ form.price.err }}</small>
             </div>
 
             <div class="form-area">
                   <input
+                        @click="$event.target.blur()"
+                        ref="submitButton"
                         type="submit"
                         value="Добавить товар"
                         class="addProductBtn"
-                        :class="{ disabled: btnDisabled }"
+                        :class="{ disabled: !formIsValid }"
                   />
             </div>
       </form>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { useStore } from "vuex";
+import { ref, computed } from "vue";
 
-import { urlRegex, validLengh } from "../helpers";
+import { urlRegex, validLengh, debounce } from "../helpers";
 
 export default {
       name: "AddProductForm",
 
-      data: () => {
-            return {
-                  btnDisabled: true,
+      setup() {
+            const store = useStore();
 
-                  productDetails: {},
+            let submitButton = ref(null);
 
-                  validity: {},
-            };
-      },
-
-      methods: {
-            ...mapActions({
-                  addProduct: "addProduct",
-            }),
-
-            resetVlidity() {
-                  this.validity = {
-                        title: {},
-                        description: {},
-                        price: {},
-                        link: {},
-                  };
-            },
-
-            resetProductDetails() {
-                  this.productDetails = {
-                        title: null,
-                        description: null,
-                        price: null,
-                        link: "",
-                  };
-            },
-
-            validate() {
-                  let title = this.productDetails.title,
-                        description = this.productDetails.description,
-                        price = this.productDetails.price,
-                        link = this.productDetails.link,
-                        bool = false;
-
-                  if (!title || !validLengh(title)) {
-                        this.validity.title.invalid = true;
-                        this.validity.title.err = "неверный заголовок";
-                        bool = true;
-                  }
-
-                  if (!description || !validLengh(description)) {
-                        this.validity.description.invalid = true;
-                        this.validity.description.err = "неверное описание";
-                        bool = true;
-                  }
-
-                  if (!price) {
-                        this.validity.price.invalid = true;
-                        this.validity.price.err = "недействительная цена";
-                        bool = true;
-                  }
-
-                  if (!link || !validLengh(link) || !link.match(urlRegex)) {
-                        this.validity.link.invalid = true;
-                        this.validity.link.err = "неправильная ссылка";
-                        bool = true;
-                  }
-
-                  return bool;
-            },
-
-            onSubmit() {
-                  this.resetVlidity();
-
-                  let invalidForm = this.validate();
-                  if (invalidForm) return;
-
-                  this.addProduct(this.productDetails);
-                  this.resetVlidity();
-                  this.resetProductDetails();
-            },
-      },
-
-      beforeMount() {
-            this.resetVlidity();
-            this.resetProductDetails();
-      },
-
-      watch: {
-            productDetails: {
-                  handler: function (obj) {
-                        for (let field of Object.keys(obj)) {
-                              if (!obj[field]) {
-                                    this.btnDisabled = true;
-                                    return;
-                              }
-                        }
-                        this.btnDisabled = false;
-                        return;
+            let form = ref({
+                  title: {
+                        value: null,
+                        valide: false,
+                        err: null,
+                        validate: function () {
+                              this.valide =
+                                    this.value && validLengh(this.value);
+                              this.err = this.valide
+                                    ? null
+                                    : "неверный заголовок";
+                        },
                   },
-                  deep: true,
-            },
+                  description: {
+                        value: null,
+                        valide: false,
+                        err: null,
+                        validate: function () {
+                              this.valide =
+                                    this.value && validLengh(this.value);
+                              this.err = this.valide
+                                    ? null
+                                    : "неверное описание";
+                        },
+                  },
+                  price: {
+                        value: null,
+                        valide: false,
+                        err: null,
+                        validate: function () {
+                              this.valide =
+                                    typeof this.value == "number" &&
+                                    this.value > 0;
+                              this.err = this.valide
+                                    ? null
+                                    : "недействительная цена";
+                        },
+                  },
+                  link: {
+                        value: null,
+                        valide: false,
+                        err: null,
+                        validate: function () {
+                              this.valide =
+                                    this.value &&
+                                    validLengh(this.value) &&
+                                    this.value.match(urlRegex);
+                              this.err = this.valide
+                                    ? null
+                                    : "неправильная ссылка";
+                        },
+                  },
+            });
+
+            let product = computed(() => {
+                  return {
+                        title: form.value.title.value,
+                        description: form.value.description.value,
+                        price: form.value.price.value,
+                        link: form.value.link.value,
+                  };
+            });
+
+            let formIsValid = computed(() => {
+                  return (
+                        form.value.title.valide &&
+                        form.value.description.valide &&
+                        form.value.price.valide &&
+                        form.value.link.valide
+                  );
+            });
+
+            let resetFields = () => {
+                  for (let key of Object.keys(form.value)) {
+                        form.value[key].value = null;
+                        form.value[key].valide = false;
+                  }
+            };
+
+            let addProduct = () => store.dispatch("addProduct");
+
+            let onSubmit = () => {
+                  // submitButton.value.blur();
+
+                  if (!formIsValid) return;
+
+                  // @ts-ignore
+                  addProduct(product);
+                  resetFields();
+            };
+
+            return {
+                  addProduct,
+                  onSubmit,
+                  form,
+                  formIsValid,
+                  submitButton,
+            };
       },
 };
 </script>
@@ -222,8 +234,14 @@ form {
             }
 
             small.error {
-                  color: $red;
+                  color: transparent;
                   font-size: 0.7rem;
+            }
+
+            &.invalid {
+                  small.error {
+                        color: $red;
+                  }
             }
 
             .addProductBtn {

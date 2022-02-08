@@ -4,15 +4,15 @@
 
             <div id="head-filter">
                   <button
-                        @blur="showFIlter = false"
-                        @click="showFIlter = !showFIlter"
+                        @blur="showFilter = false"
+                        @click="showFilter = !showFilter"
                   >
                         <span>По умолчанию</span
                         ><span class="down-arrow">&#8964;</span>
                   </button>
 
                   <transition name="fade">
-                        <ul class="options" v-if="showFIlter">
+                        <ul class="options" v-if="showFilter">
                               <li
                                     :class="{ checkedFilter: filter == 0 }"
                                     @click="reOrder(0)"
@@ -45,45 +45,48 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
       name: "Header",
 
-      data: () => {
-            return {
-                  showFIlter: false,
-                  filter: null,
-            };
-      },
+      setup() {
+            let store = useStore();
 
-      methods: {
-            ...mapActions({
-                  orderByMinPrice: "orderByMinPrice",
-                  orderByMaxPrice: "orderByMaxPrice",
-                  orderByName: "orderByName",
-            }),
+            let showFilter = ref(false);
+            let filter = ref(null);
 
-            reOrder(num) {
-                  this.filter = num;
+            let orderByMinPrice = () => store.dispatch("orderByMinPrice");
+            let orderByMaxPrice = () => store.dispatch("orderByMaxPrice");
+            let orderByName = () => store.dispatch("orderByName");
+
+            let reOrder = (num) => {
+                  filter.value = num;
 
                   switch (num) {
                         case 0:
-                              this.orderByMinPrice();
+                              orderByMinPrice();
                               break;
 
                         case 1:
-                              this.orderByMaxPrice();
+                              orderByMaxPrice();
                               break;
 
                         case 2:
-                              this.orderByName();
+                              orderByName();
                               break;
 
                         default:
                               break;
                   }
-            },
+            };
+
+            return {
+                  showFilter,
+                  filter,
+                  reOrder,
+            };
       },
 };
 </script>

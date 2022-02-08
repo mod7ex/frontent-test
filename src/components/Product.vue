@@ -31,23 +31,11 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { useStore } from "vuex";
+import { ref } from "vue";
 
 export default {
       name: "Product",
-
-      data: () => {
-            return {
-                  showDelet: false,
-                  bool: false,
-            };
-      },
-
-      methods: {
-            ...mapActions({
-                  deleteProduct: "deleteProduct",
-            }),
-      },
 
       props: {
             productDetails: {
@@ -70,6 +58,21 @@ export default {
                         },
                   */
             },
+      },
+
+      setup(props) {
+            const store = useStore();
+
+            let showDelet = ref(false);
+            let bool = ref(false);
+
+            let deleteProduct = (id) => store.dispatch("deleteProduct", id);
+
+            return {
+                  showDelet,
+                  bool,
+                  deleteProduct,
+            };
       },
 };
 </script>
