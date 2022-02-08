@@ -38,27 +38,15 @@ export default {
 
 #productsListing {
       display: grid;
-      // grid-template-columns: repeat(3, 1fr);
-      // grid-template-columns: repeat(auto-fit, minmax($base-width * 1.3, 1fr));
-      grid-template-columns: repeat(auto-fit, $base-width);
-
-      grid-column-gap: $base-margin;
-      grid-row-gap: $base-margin;
-
-      grid-auto-flow: row !important;
-
+      grid-template-columns: repeat(auto-fit, minmax(14.5em, auto));
+      grid-column-gap: 1em;
+      grid-row-gap: 1em;
       justify-content: right;
 }
 
-// @media only screen and (max-width: $screen-1) {
-//       #productsListing {
-//             grid-template-columns: repeat(2, 1fr);
-//       }
-// }
-
-// @media only screen and (max-width: $screen-2) {
-//       #productsListing {
-//             grid-template-columns: 1fr;
-//       }
-// }
+@media screen and (min-width: $screen-large) {
+      #productsListing {
+            grid-template-columns: repeat(3, 1fr);
+      }
+}
 </style>

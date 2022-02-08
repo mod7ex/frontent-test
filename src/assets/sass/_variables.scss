@@ -1,27 +1,16 @@
-$base-margin: 1rem;
-$base-padding: 0.5rem;
-
-$base-width: 327px;
-
 $screen-max-width: 1440px;
-$screen-large: 1008px;
-$screen-medium: 641px;
+
+$screen-large: 1134px;
+$screen-medium: 892px;
 $screen-small: 640px;
 
-$screen-1: 1060px;
-$screen-2: 930px;
-$screen-3: 730px;
+$border-radius: 5px;
 
-$black: #0f172a;
+/* Colors */
 
-$white: #faf9f7;
-
-$grey: #eeeeee;
-
-$gray: #d1d5db;
-
-$black-gray: #b4b4b4;
-
+$bg-color: #e5e5e5;
+$items-bg-color: #fffefb;
+$red: #ff8484;
 $green: #7bae73;
 
-$border-radius: 3px;
+$text-color: #3f3f3f;

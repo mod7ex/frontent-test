@@ -1,7 +1,9 @@
 <template>
       <form action="" @submit.prevent="onSubmit">
             <div class="form-area" :class="{ invalid: validity.title.invalid }">
-                  <label for="title">Наименование товара *</label>
+                  <label for="title"
+                        >Наименование товара <span class="important"> </span
+                  ></label>
                   <input
                         type="text"
                         placeholder="Введите наименование товара"
@@ -26,7 +28,10 @@
             </div>
 
             <div class="form-area" :class="{ invalid: validity.link.invalid }">
-                  <label for="link">Ссылка на изображение товара *</label>
+                  <label for="link"
+                        >Ссылка на изображение товара
+                        <span class="important"></span>
+                  </label>
                   <input
                         type="text"
                         placeholder="Введите ссылку"
@@ -37,7 +42,9 @@
             </div>
 
             <div class="form-area" :class="{ invalid: validity.price.invalid }">
-                  <label for="price">Цена товара *</label>
+                  <label for="price"
+                        >Цена товара <span class="important"></span>
+                  </label>
                   <input
                         type="number"
                         placeholder="Введите цену"
@@ -170,49 +177,71 @@ export default {
 
 <style lang="scss">
 form {
-      @include theme-shape();
-      background-color: white;
-      padding: $base-padding * 3;
+      background-color: $items-bg-color;
+      padding: 2em;
+      @extend .shape;
 
       .form-area {
-            margin-bottom: $base-margin * 2;
+            margin-bottom: 2em;
 
-            .error {
-                  font-size: 11px;
-                  color: transparent;
+            ::placeholder {
+                  font-weight: normal;
+                  font-size: 0.9rem;
             }
 
-            &.invalid {
-                  .error {
-                        color: red;
+            label {
+                  @include flex($justify: flex-start, $align: flex-start);
+
+                  .important {
+                        margin-left: 0.2em;
+                        padding: 3px;
+                        border-radius: 50%;
+                        background-color: $red;
                   }
 
-                  input,
-                  textarea {
-                        border: 1px solid red;
+                  max-width: fit-content;
+            }
+
+            textarea {
+                  resize: none;
+            }
+
+            input,
+            textarea {
+                  margin-top: 0.3em;
+                  display: block;
+                  width: 100%;
+                  border: 1px solid rgba($bg-color, 0.5);
+                  padding: 0.7em;
+                  border-radius: $border-radius;
+                  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+
+                  &:focus {
+                        border: 1px solid rgba(black, 0.3);
                   }
+            }
+
+            small.error {
+                  color: $red;
+                  font-size: 0.7rem;
             }
 
             .addProductBtn {
-                  cursor: pointer;
+                  border-radius: 10px;
                   background-color: $green;
-                  color: white;
-                  font-weight: bolder;
+                  cursor: pointer;
 
                   &.disabled {
-                        background-color: $grey;
-                        color: $black-gray;
-                        pointer-events: none;
+                        background-color: #eee;
+                        cursor: auto;
                   }
             }
       }
 }
 
-@media only screen and (min-width: $screen-medium) {
+@media screen and (max-width: $screen-small) {
       form {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 20px;
+            margin-bottom: 1em;
       }
 }
 </style>

@@ -10,13 +10,13 @@
                   </a>
             </div>
             <div class="details">
-                  <a href="{{productDetails.link}}">
-                        <h3 class="title">{{ productDetails.title }}</h3>
+                  <a class="title" href="{{productDetails.link}}">
+                        <h3>{{ productDetails.title }}</h3>
                   </a>
                   <p class="description">
                         {{ productDetails.description }}
                   </p>
-                  <h3>{{ productDetails.price }} руб.</h3>
+                  <h3 class="price">{{ productDetails.price }} руб.</h3>
             </div>
             <transition name="fade">
                   <span
@@ -80,43 +80,46 @@ export default {
       opacity: 0;
 }
 
-.product {
-      @include theme-shape();
+li.product {
+      background-color: $items-bg-color;
+      cursor: pointer;
+      @extend .shape;
       position: relative;
-      transition: box-shadow 0.5s ease;
-
-      &:hover {
-            box-shadow: 0 2px 3px rgba($black, 0.5);
-      }
 
       .delete {
-            background-color: #ff8484;
             position: absolute;
-            padding: 7px;
-            border-radius: $border-radius * 2;
-            top: -10px;
-            right: -10px;
-            cursor: pointer;
-            transition: all 0.5s ease;
+            top: -0.5em;
+            right: -0.4em;
+            background-color: $red;
+            @extend .shape;
+            padding: 0.3em;
+      }
+
+      &:hover {
+            box-shadow: 0px 20px 30px rgba(black, 0.1),
+                  0px 6px 10px rgba(black, 0.2);
       }
 
       .details {
-            color: $black;
-            margin: $base-margin * 1.3;
-            .title,
+            padding: 1.3em;
+            font-weight: normal;
+
             .description {
-                  margin-bottom: $base-margin * 1.3;
+                  margin: 1em 0 2em 0;
+            }
+
+            .title {
+                  text-decoration: none;
+                  color: $text-color;
+            }
+
+            .price {
+                  font-size: 1.3rem;
             }
       }
 
       .image {
-            margin-bottom: $base-margin;
-            height: 230px;
-            width: 100%;
-
             img {
-                  vertical-align: top;
-                  height: 100%;
                   width: 100%;
             }
       }

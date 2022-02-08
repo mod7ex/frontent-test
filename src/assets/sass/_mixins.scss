@@ -10,8 +10,3 @@
       align-items: $align;
       flex-wrap: $wrap;
 }
-
-@mixin theme-shape($rd: $border-radius) {
-      box-shadow: 0 2px 3px rgba($black, 0.2);
-      border-radius: $rd;
-}

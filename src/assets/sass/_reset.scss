@@ -1,66 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap");
 
+* {
+      transition: all 0.7s ease;
+}
+
 *,
 body,
 html {
       padding: 0;
       margin: 0;
       box-sizing: border-box;
-      color: $black;
       font-family: "Source Sans Pro", sans-serif;
-}
-
-* {
-      transition: all 1s ease;
+      color: $text-color;
 }
 
 ul {
       list-style: none;
-}
 
-input[type="text"],
-input[type="submit"],
-input[type="number"],
-textarea {
-      display: block;
-      border: 1px solid transparent;
-      width: 100%;
-      padding: $base-padding * 1.7;
-      margin-top: 5px;
-      @include theme-shape();
-
-      &:focus {
-            outline: none;
-            border: 1px solid rgba($black, 0.2);
+      li {
+            padding: 0;
       }
 }
 
 button,
-input[type="submit"] {
-      &:focus {
-            outline: none;
-      }
-
-      background-color: none;
+input,
+textarea[type="submit"] {
+      outline: none;
       border: none;
-}
-
-::placeholder {
-      color: $black-gray;
-      font-size: 1em;
-}
-
-textarea {
-      resize: none;
-}
-
-.bg-img {
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-clip: padding-box;
-}
-
-a {
-      text-decoration: none;
 }

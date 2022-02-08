@@ -17,18 +17,24 @@ export default {
 </script>
 
 <style lang="scss">
-#body {
-      display: grid;
-      grid-template-columns: $base-width auto;
-      grid-column-gap: $base-margin;
-      align-items: start;
+@media screen and (min-width: $screen-small) {
+      #body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-column-gap: 1em;
+            align-items: start;
+      }
 }
 
-@media only screen and (max-width: $screen-small * 1.3) {
+@media screen and (min-width: $screen-medium) {
       #body {
-            grid-template-columns: $base-width;
-            grid-row-gap: $base-margin;
-            justify-content: center;
+            grid-template-columns: 1fr 2fr;
+      }
+}
+
+@media screen and (min-width: $screen-large) {
+      #body {
+            grid-template-columns: 1fr 3fr;
       }
 }
 </style>

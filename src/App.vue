@@ -58,13 +58,12 @@ export default {
 
 <style lang="scss">
 body {
-      background-color: $white;
+      background-color: $bg-color;
 }
 
 #app {
       max-width: $screen-max-width;
-      margin-left: auto !important;
-      margin-right: auto !important;
-      padding: $base-padding * 2;
+      margin: 0 auto;
+      padding: 0 1em 1em 1em;
 }
 </style>
