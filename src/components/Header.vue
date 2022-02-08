@@ -67,8 +67,6 @@ export default {
             reOrder(num) {
                   this.filter = num;
 
-                  console.log(num);
-
                   switch (num) {
                         case 0:
                               this.orderByMinPrice();
