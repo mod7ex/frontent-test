@@ -22,6 +22,7 @@ export default createStore({
             },
 
             addProduct(state, payload) {
+                  console.log(payload);
                   state.products.push(payload);
             },
 

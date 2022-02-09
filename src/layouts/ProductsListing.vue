@@ -10,7 +10,8 @@
 
 <script>
 import Product from "../components/Product.vue";
-import { mapGetters } from "vuex";
+import { useStore } from "vuex";
+import { computed } from "vue";
 
 export default {
       name: "ProductsListing",
@@ -19,8 +20,14 @@ export default {
             Product,
       },
 
-      computed: {
-            ...mapGetters({ products: "PRODUCTS" }),
+      setup() {
+            const store = useStore();
+
+            let products = computed(() => store.getters.PRODUCTS);
+
+            return {
+                  products,
+            };
       },
 };
 </script>

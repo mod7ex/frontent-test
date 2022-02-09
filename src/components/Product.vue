@@ -1,8 +1,8 @@
 <template>
       <li
             class="product"
-            @mouseenter="showDelet = true"
-            @mouseleave="showDelet = false"
+            @mouseenter="showDelete = true"
+            @mouseleave="showDelete = false"
       >
             <div class="image">
                   <a :href="productDetails.link">
@@ -21,7 +21,7 @@
             <transition name="fade">
                   <span
                         class="delete"
-                        v-if="showDelet"
+                        v-if="showDelete"
                         @click="deleteProduct(productDetails.id)"
                   >
                         <img src="../assets/delete.svg" alt="" />
@@ -60,16 +60,16 @@ export default {
             },
       },
 
-      setup(props) {
+      setup() {
             const store = useStore();
 
-            let showDelet = ref(false);
+            let showDelete = ref(false);
             let bool = ref(false);
 
             let deleteProduct = (id) => store.dispatch("deleteProduct", id);
 
             return {
-                  showDelet,
+                  showDelete,
                   bool,
                   deleteProduct,
             };

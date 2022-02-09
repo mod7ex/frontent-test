@@ -143,7 +143,7 @@ export default {
                   return {
                         title: form.value.title.value,
                         description: form.value.description.value,
-                        price: form.value.price.value,
+                        price: +form.value.price.value,
                         link: form.value.link.value,
                   };
             });
@@ -164,20 +164,19 @@ export default {
                   }
             };
 
-            let addProduct = () => store.dispatch("addProduct");
+            let addProduct = (payload) => store.dispatch("addProduct", payload);
 
             let onSubmit = () => {
                   // submitButton.value.blur();
 
-                  if (!formIsValid) return;
+                  if (!formIsValid.value) return;
 
                   // @ts-ignore
-                  addProduct(product);
+                  addProduct(product.value);
                   resetFields();
             };
 
             return {
-                  addProduct,
                   onSubmit,
                   form,
                   formIsValid,
